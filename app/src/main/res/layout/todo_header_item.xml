@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 待办列表里「已完成」的分组标题行 -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F5F5F5"
+    android:paddingLeft="12dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:text="已完成"
+    android:textColor="@color/text_hint"
+    android:textSize="13sp" />

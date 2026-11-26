@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自绘对话框标题栏：底色由代码铺主题色，白字标题，右端一个关闭符。
+     用它替掉 Theme.Holo 自带的青蓝渐变标题条，弹窗才跟七套主题统一。 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="14dp">
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/btn_dialog_close"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="×"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 优先级颜色（浅色）：浅红=紧急，浅黄=一般，浅蓝=不急 -->
+    <color name="priority_high">#EF9A9A</color>
+    <color name="priority_normal">#FFF59D</color>
+    <color name="priority_low">#90CAF9</color>
+    <!-- 完成后优先级色条变灰 -->
+    <color name="priority_done">#E0E0E0</color>
+
+    <!-- 主色（底部导航选中、按钮、顶栏、右下角加号） -->
+    <!-- 功能H③：这里的值是「紫」这一套的底色；换主题时由 ThemeHelper 在运行时覆盖 -->
+    <color name="app_primary">#7C77D2</color>
+    <color name="nav_unselected">#666666</color>
+
+    <!-- 文字颜色 -->
+    <color name="text_main">#222222</color>
+    <color name="text_done">#9E9E9E</color>
+    <color name="text_hint">#888888</color>
+    <color name="divider">#E0E0E0</color>
+
+    <!-- 已过期（未完成但过了截止时间） -->
+    <color name="text_overdue">#D32F2F</color>
+    <color name="header_overdue_bg">#FDECEA</color>
+</resources>

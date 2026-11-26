@@ -150,5 +150,63 @@ public final class NotePad {
          * <P>Type: INTEGER (long from System.curentTimeMillis())</P>
          */
         public static final String COLUMN_NAME_MODIFICATION_DATE = "modified";
+
+        /**
+         * Column name for the folder that the note belongs to
+         * <P>Type: INTEGER</P>
+         * <P>references folders._id; 1 is the default "未分类" folder</P>
+         */
+        public static final String COLUMN_NAME_FOLDER = "folder_id";
+
+        /**
+         * The id of the default folder ("未分类") that every uncategorized note belongs to
+         */
+        public static final long DEFAULT_FOLDER_ID = 1;
+
+        /**
+         * Column name of the plain text of the note.
+         * <P>Type: TEXT</P>
+         * <P>存剥掉格式标记后的纯文本，只给搜索用（功能B）</P>
+         */
+        public static final String COLUMN_NAME_PLAIN_TEXT = "plain_text";
+
+        /**
+         * Column name of the note's background color.
+         * <P>Type: TEXT ("#RRGGBB")</P>
+         */
+        public static final String COLUMN_NAME_BG_COLOR = "bg_color";
+
+        /**
+         * Column name of the image file names used by this note.
+         * <P>Type: TEXT（多个用 "|" 分隔，只存文件名，不存绝对路径）</P>
+         * <P>正文里的图片信息在 note 的格式数据里已经有了，这一列是冗余索引，
+         *    只为删笔记时能直接找到要清理的图片文件</P>
+         */
+        public static final String COLUMN_NAME_IMAGES = "image_path";
+
+        /**
+         * 笔记背景色的可选值。比"纯白"稍微带一点点色，看着是彩色的纸，
+         * 但不至于艳到压字。
+         */
+        public static final String[] BG_COLORS = {
+                "#FFFFFF", // 白
+                "#FFF2F2", // 浅红
+                "#FFFAE6", // 浅黄
+                "#EDF5FF", // 浅蓝
+                "#F0FAF2", // 浅绿
+                "#F5F0FB", // 浅紫
+        };
+
+        /**
+         * 背景色对应的名字，顺序和 BG_COLORS 一一对应
+         */
+        public static final String[] BG_COLOR_NAMES = {
+                "白", "浅红", "浅黄", "浅蓝", "浅绿", "浅紫"
+        };
+
+        /**
+         * 默认背景色
+         */
+        public static final String DEFAULT_BG_COLOR = "#FFFFFF";
     }
 }

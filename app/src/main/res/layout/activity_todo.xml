@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 待办页：列表 + 右下角悬浮「新建」按钮 + 底部导航 -->
+<!-- 功能H①：原来占满一行的大蓝按钮改成跟笔记页一样的圆形加号 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 功能H②：自绘顶栏 -->
+    <include layout="@layout/top_bar" />
+
+    <!-- 列表和空提示叠在同一块区域，保证底部导航始终贴底 -->
+    <!-- 悬浮按钮也放这一层：它的 bottom 就是列表区的底边，正好落在底栏上方 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/lv_todo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/divider"
+            android:dividerHeight="1dp"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/tv_empty_todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="暂无待办\n点右下角「＋」添加一条"
+            android:textColor="@color/text_hint"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <!-- 功能H①：圆形悬浮按钮，替代原来顶部的「＋ 新建待办」大按钮 -->
+        <TextView
+            android:id="@+id/fab_add_todo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="20dp"
+            android:background="@drawable/fab_bg"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:text="＋"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+    </FrameLayout>
+
+    <include layout="@layout/bottom_nav" />
+
+</LinearLayout>

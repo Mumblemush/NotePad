@@ -1,17 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.2'
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+// Top-level build file: 只声明插件版本，仓库统一在 settings.gradle 配置
+plugins {
+    id 'com.android.application' version '9.3.0' apply false
 }

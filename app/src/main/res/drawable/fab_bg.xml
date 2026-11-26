@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 功能H①：右下角「新建」悬浮按钮的圆形背景 -->
+<!-- 颜色跟着主色走，后面换主题时只改 app_primary 一处 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/app_primary" />
+</shape>

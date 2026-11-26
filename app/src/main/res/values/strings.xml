@@ -40,4 +40,11 @@
     <string name="error_title">Error</string>
     <string name="error_message">Error loading note</string>
     <string name="nothing_to_save">There is nothing to save</string>
+
+    <!-- 功能B：搜索框提示文字 -->
+    <string name="search_hint">搜索笔记（标题或内容）</string>
+
+    <!-- 底部导航页标题 -->
+    <string name="title_todo_list">待办</string>
+    <string name="title_calendar">日历</string>
 </resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 日历页：自绘月历 + 选中那天的待办列表 + 右下角加号 + 底部导航 -->
+<!-- 功能H⑤：系统 CalendarView 换成自己画的 MonthGrid，这样才可能给某一天加标记 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 功能H②：自绘顶栏 -->
+    <include layout="@layout/top_bar" />
+
+    <com.example.android.notepad.calendar.MonthGrid
+        android:id="@+id/month_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- 选中那天的标题：「2026年11月23日 · 2 条待办」 -->
+    <TextView
+        android:id="@+id/tv_day_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="6dp"
+        android:textColor="@color/text_main"
+        android:textSize="14sp" />
+
+    <!-- 当天待办列表和空提示叠在一起，右下角再浮一个加号 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/lv_day"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/divider"
+            android:dividerHeight="1dp"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/tv_empty_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="这天没有待办\n点右下角「＋」加一条"
+            android:textColor="@color/text_hint"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- 功能H⑤：加号按钮，跟笔记页、待办页同一个样式 -->
+        <TextView
+            android:id="@+id/fab_add_on_date"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="20dp"
+            android:background="@drawable/fab_bg"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:text="＋"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+    </FrameLayout>
+
+    <include layout="@layout/bottom_nav" />
+
+</LinearLayout>

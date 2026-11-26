@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 待办列表的一行：左边优先级色条 + 勾选框 + 待办内容 + 截止时间 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+    android:minHeight="60dp">
+
+    <!-- 优先级色条：浅红/浅黄/浅蓝，完成后变灰，颜色在代码里设置 -->
+    <View
+        android:id="@+id/priority_bar"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:background="@color/priority_normal" />
+
+    <!-- focusable=false 很关键：不然勾选框会抢走整行的点击，点行打不开编辑框 -->
+    <CheckBox
+        android:id="@+id/cb_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="4dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:id="@+id/tv_todo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_main" />
+
+        <TextView
+            android:id="@+id/tv_todo_due"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint" />
+    </LinearLayout>
+
+</LinearLayout>

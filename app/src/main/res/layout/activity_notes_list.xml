@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 列表页整体布局：顶部搜索框 + 文件夹导航条 + 下面 ListView + 右下角悬浮「新建」按钮 -->
+<!-- 功能H①：根布局从 LinearLayout 换成 FrameLayout，好让圆形按钮浮在列表上面 -->
+<!-- 注意：ListView 的 id 必须是 @android:id/list，ListActivity 才能认识它 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 功能H②：自绘顶栏（实色底 + 白字标题 + ⋮） -->
+        <include layout="@layout/top_bar" />
+
+        <!-- 搜索框：常驻一行，输入时实时过滤（功能B） -->
+        <!-- 功能H⑦：去掉系统默认的黑下划线，换浅灰圆角底 -->
+        <!-- 功能H④ 试过"点放大镜才拉下来"，用过嫌麻烦，已撤回，保持常驻 -->
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/search_bg"
+            android:gravity="center_vertical"
+            android:hint="@string/search_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textSize="15sp"/>
+
+        <!-- 面包屑：当前位置路径，点某一级就退回去 -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/tv_folder_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="6dp"
+                android:text="全部笔记"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+        </HorizontalScrollView>
+
+        <!-- 当前这一层的文件夹：横向可滑动，最后一个固定是「＋新建」 -->
+        <!-- 功能H⑩：右边留 16dp，最后那个 chip 才不会贴着屏幕边缘被切掉 -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:clipToPadding="false"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/folder_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp" />
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- 列表：weight=1 让它占满剩余空间 -->
+        <!-- paddingBottom + clipToPadding=false：给悬浮按钮让出位置，滚到底也压不到最后一条 -->
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false" />
+
+    </LinearLayout>
+
+    <!-- 功能H⑩：列表空态。搜不到东西、或者这个文件夹还没笔记时，别留一片白 -->
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:padding="32dp"
+        android:text="这里还没有笔记，点右下角「＋」写一篇"
+        android:textColor="@color/text_hint"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <!-- 功能H①：圆形悬浮按钮，替代原来顶栏的铅笔「新建」 -->
+    <TextView
+        android:id="@+id/fab_add"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        android:background="@drawable/fab_bg"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:text="＋"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+</FrameLayout>

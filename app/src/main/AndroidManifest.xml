@@ -31,7 +31,10 @@
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
 
-        <activity android:name="NotesList" android:label="@string/title_notes_list">
+        <!-- 功能H②：三页都改成自己画顶栏，所以去掉系统 ActionBar -->
+        <activity android:name="NotesList" android:label="@string/title_notes_list"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,11 +53,12 @@
             </intent-filter>
         </activity>
 
+        <!-- 功能I：编辑页改成自己画顶栏，所以去掉系统 ActionBar -->
         <activity android:name="NoteEditor"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:screenOrientation="sensor"
             android:configChanges="keyboardHidden|orientation"
-        >
+            android:exported="false">
             <!-- This filter says that we can view or edit the data of
                  a single note -->
             <intent-filter android:label="@string/resolve_edit">
@@ -82,7 +86,8 @@
             android:label="@string/title_edit_title"
             android:icon="@drawable/ic_menu_edit"
             android:theme="@android:style/Theme.Holo.Dialog"
-            android:windowSoftInputMode="stateVisible">
+            android:windowSoftInputMode="stateVisible"
+            android:exported="false">
             <!-- This activity implements an alternative action that can be
                  performed on notes: editing their title.  It can be used as
                  a default operation if the user invokes this action, and is
@@ -106,12 +111,31 @@
         </activity>
 
         <activity android:name="NotesLiveFolder" android:label="@string/live_folder_name"
-            android:icon="@drawable/live_folder_notes">
+            android:icon="@drawable/live_folder_notes"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_LIVE_FOLDER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- 底部导航：待办页 -->
+        <activity android:name="com.example.android.notepad.todo.TodoActivity"
+            android:label="@string/title_todo_list"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:exported="false" />
+
+        <!-- 底部导航：日历页 -->
+        <activity android:name="com.example.android.notepad.calendar.CalendarActivity"
+            android:label="@string/title_calendar"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:exported="false" />
+
+        <!-- 功能H③：设置页（外观主题 / 新建笔记默认值 / 关于） -->
+        <activity android:name="com.example.android.notepad.ui.SettingsActivity"
+            android:label="设置"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:exported="false" />
 
     </application>
 

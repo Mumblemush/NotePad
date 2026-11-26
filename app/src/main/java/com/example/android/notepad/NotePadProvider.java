@@ -63,7 +63,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
     /**
      * The database version
      */
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     /**
      * A projection map used to select columns from the database
@@ -156,6 +156,22 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
                 NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE,
                 NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE);
 
+        // Maps "folder_id" to "folder_id"（新增：笔记所属文件夹）
+        sNotesProjectionMap.put(NotePad.Notes.COLUMN_NAME_FOLDER,
+                NotePad.Notes.COLUMN_NAME_FOLDER);
+
+        // Maps "plain_text" to "plain_text"（新增：搜索用的纯文本）
+        sNotesProjectionMap.put(NotePad.Notes.COLUMN_NAME_PLAIN_TEXT,
+                NotePad.Notes.COLUMN_NAME_PLAIN_TEXT);
+
+        // Maps "bg_color" to "bg_color"（新增：笔记背景色）
+        sNotesProjectionMap.put(NotePad.Notes.COLUMN_NAME_BG_COLOR,
+                NotePad.Notes.COLUMN_NAME_BG_COLOR);
+
+        // Maps "image_path" to "image_path"（新增：笔记用到的图片文件名）
+        sNotesProjectionMap.put(NotePad.Notes.COLUMN_NAME_IMAGES,
+                NotePad.Notes.COLUMN_NAME_IMAGES);
+
         /*
          * Creates an initializes a projection map for handling Live Folders
          */
@@ -196,7 +212,13 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
                    + NotePad.Notes.COLUMN_NAME_TITLE + " TEXT,"
                    + NotePad.Notes.COLUMN_NAME_NOTE + " TEXT,"
                    + NotePad.Notes.COLUMN_NAME_CREATE_DATE + " INTEGER,"
-                   + NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE + " INTEGER"
+                   + NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE + " INTEGER,"
+                   + NotePad.Notes.COLUMN_NAME_FOLDER + " INTEGER NOT NULL DEFAULT "
+                   + NotePad.Notes.DEFAULT_FOLDER_ID + ","
+                   + NotePad.Notes.COLUMN_NAME_PLAIN_TEXT + " TEXT,"
+                   + NotePad.Notes.COLUMN_NAME_BG_COLOR + " TEXT NOT NULL DEFAULT '"
+                   + NotePad.Notes.DEFAULT_BG_COLOR + "',"
+                   + NotePad.Notes.COLUMN_NAME_IMAGES + " TEXT"
                    + ");");
        }
 
@@ -210,15 +232,42 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
        @Override
        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-           // Logs that the database is being upgraded
-           Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                   + newVersion + ", which will destroy all old data");
+           Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
 
-           // Kills the table and existing data
-           db.execSQL("DROP TABLE IF EXISTS notes");
+           // 老版本没有 folder_id 列：直接加列，保留用户已有笔记（不删表！）
+           if (oldVersion < 3) {
+               try {
+                   db.execSQL("ALTER TABLE " + NotePad.Notes.TABLE_NAME + " ADD COLUMN "
+                           + NotePad.Notes.COLUMN_NAME_FOLDER + " INTEGER NOT NULL DEFAULT "
+                           + NotePad.Notes.DEFAULT_FOLDER_ID);
+               } catch (Exception e) {
+                   Log.w(TAG, "add folder column failed: " + e);
+               }
+           }
 
-           // Recreates the database with a new version
-           onCreate(db);
+           // 版本 4：加富文本相关的三列（纯文本搜索 / 背景色 / 图片文件名）
+           // 老笔记的 note 列本来就是纯文本，读出来照样正常，不需要迁移数据
+           if (oldVersion < 4) {
+               try {
+                   db.execSQL("ALTER TABLE " + NotePad.Notes.TABLE_NAME + " ADD COLUMN "
+                           + NotePad.Notes.COLUMN_NAME_PLAIN_TEXT + " TEXT");
+               } catch (Exception e) {
+                   Log.w(TAG, "add plain_text column failed: " + e);
+               }
+               try {
+                   db.execSQL("ALTER TABLE " + NotePad.Notes.TABLE_NAME + " ADD COLUMN "
+                           + NotePad.Notes.COLUMN_NAME_BG_COLOR + " TEXT NOT NULL DEFAULT '"
+                           + NotePad.Notes.DEFAULT_BG_COLOR + "'");
+               } catch (Exception e) {
+                   Log.w(TAG, "add bg_color column failed: " + e);
+               }
+               try {
+                   db.execSQL("ALTER TABLE " + NotePad.Notes.TABLE_NAME + " ADD COLUMN "
+                           + NotePad.Notes.COLUMN_NAME_IMAGES + " TEXT");
+               } catch (Exception e) {
+                   Log.w(TAG, "add image_path column failed: " + e);
+               }
+           }
        }
    }
 
